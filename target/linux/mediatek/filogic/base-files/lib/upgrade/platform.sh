@@ -38,7 +38,8 @@ xiaomi_initial_setup()
 
 	local board=$(board_name)
 	case "$board" in
-	xiaomi,mi-router-wr30u-stock)
+	xiaomi,mi-router-wr30u-stock|\
+	xiaomi,mi-router-ax3000t-stock)
 		fw_setenv mtdparts "nmbm0:1024k(bl2),256k(Nvram),256k(Bdata),2048k(factory),2048k(fip),256k(crash),256k(crash_log),34816k(ubi),34816k(ubi1),32768k(overlay),12288k(data),256k(KF)"
 		;;
 	xiaomi,redmi-router-ax6000-stock)
@@ -115,6 +116,7 @@ platform_do_upgrade() {
 	tplink,tl-xdr6086|\
 	tplink,tl-xdr6088|\
 	xiaomi,mi-router-wr30u-ubootmod|\
+	xiaomi,mi-router-ax3000t-ubootmod|\
 	xiaomi,redmi-router-ax6000-ubootmod)
 		CI_KERNPART="fit"
 		nand_do_upgrade "$1"
@@ -129,6 +131,7 @@ platform_do_upgrade() {
 		emmc_do_upgrade "$1"
 		;;
 	xiaomi,mi-router-wr30u-stock|\
+	xiaomi,mi-router-ax3000t-stock|\
 	xiaomi,redmi-router-ax6000-stock)
 		CI_KERN_UBIPART=ubi_kernel
 		CI_ROOT_UBIPART=ubi
@@ -195,6 +198,7 @@ platform_pre_upgrade() {
 
 	case "$board" in
 	xiaomi,mi-router-wr30u-stock|\
+	xiaomi,mi-router-ax3000t-stock|\
 	xiaomi,redmi-router-ax6000-stock)
 		xiaomi_initial_setup
 		;;
