@@ -37,6 +37,8 @@ mediatek_setup_interfaces()
 		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3" wan
 		;;
 	cmcc,rax3000m|\
+	cmcc,rax3000m-emmc-ubootlayout|\
+	cmcc,rax3000m-nand-ubootlayout|\
 	konka,komi-a31|\
 	konka,komi-a31-nmbm|\
 	h3c,magic-nx30-pro-nmbm|\
@@ -140,6 +142,11 @@ mediatek_setup_macs()
 			label_mac=$wan_mac
 		;;
 		esac
+		;;
+	cmcc,rax3000m-emmc-ubootlayout)
+		wan_mac=$(mmc_get_mac_binary factory 0x2a)
+		lan_mac=$(mmc_get_mac_binary factory 0x24)
+		label_mac=$wan_mac
 		;;
 	glinet,gl-mt2500)
 		label_mac="$(get_mac_binary "/dev/mmcblk0boot1" 0xA)"
